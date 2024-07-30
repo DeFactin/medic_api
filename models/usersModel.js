@@ -4,10 +4,6 @@ const Schema = mongoose.Schema
 const validator = require('validator')
 
 const userSchema = new Schema({
-    id: {
-        type: String,
-        required: false
-    },
     username: {
         type: String,
         required: true
@@ -51,7 +47,6 @@ const userSchema = new Schema({
 // signup method
 userSchema.statics.signup = async function (username, password, name, orders, image, birthdate) {
 
-
     //validation
     if (!username || !password || !name || !orders || !image || !birthdate) {
         throw Error('All fields must be filled')
@@ -66,7 +61,6 @@ userSchema.statics.signup = async function (username, password, name, orders, im
         throw Error('Password not strong enough')
     }
 
-
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
@@ -75,5 +69,24 @@ userSchema.statics.signup = async function (username, password, name, orders, im
     return user
 }
 
+// login method
+userSchema.statics.login = async function (username, password) {
+
+    if (!username || !password) {
+        throw Error('All fields must be filled')
+    }
+
+    const user = await this.findOne({ username })
+    if (!user) {
+        throw Error('Incorrect username')
+    }
+
+    const match = await bcrypt.compare(password, user.password)
+    if (!match) {
+        throw Error('Incorrect password')
+    }
+
+    return user
+}
 
 module.exports = mongoose.model('User', userSchema)
