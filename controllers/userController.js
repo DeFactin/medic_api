@@ -7,7 +7,7 @@ const createToken = (_id) => {
 
 // login a user
 const loginUser = async (req, res) => {
-  const {username, password} = req.body
+  const { username, password } = req.body
 
   try {
     const user = await User.login(username, password)
@@ -15,9 +15,9 @@ const loginUser = async (req, res) => {
     // create a token
     const token = createToken(user._id)
 
-    res.status(200).json({username, token})
+    res.status(200).json({ username, token })
   } catch (error) {
-    res.status(400).json({error: error.message})
+    res.status(400).json({ error: error.message })
   }
 }
 
@@ -37,5 +37,29 @@ const registerUser = async (req, res) => {
   }
 }
 
+//logout
+const logoutUser = async (req, res) => {
+  const { username } = req.body;
 
-module.exports = { loginUser, registerUser }
+  if (!username) {
+    return res.status(400).json({ error: 'Username is required' });
+  }
+
+  try {
+    const user = await User.logoutUser(username);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'Logout successful', username });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
+module.exports = { loginUser, registerUser, logoutUser }

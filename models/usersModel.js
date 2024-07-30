@@ -89,4 +89,22 @@ userSchema.statics.login = async function (username, password) {
     return user
 }
 
+userSchema.statics.logoutUser = async function (username) {
+    try {
+        const user = await this.findOne({ username }); // Find the user by username
+        if (!user) {
+            throw new Error('User not found');
+        }
+        user.lastlog = new Date();
+        await user.save();
+        console.log(`Last log updated for user ${username}`);
+        return user;
+    } catch (error) {
+        console.error('Error updating last log:', error);
+        throw error;
+    }
+}
+
+
+
 module.exports = mongoose.model('User', userSchema)
