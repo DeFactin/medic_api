@@ -23,18 +23,6 @@ const getUser = async (req, res) => {
     res.status(200).json(user)
 }
 
-
-const createUser = async (req, res) => {
-    const { id, name, username, role, orders, password, lastlog, image, status, birthdate } = req.body
-
-    try {
-        const user = await Users.create({ id, name, username, password, role, orders, lastlog, image, status, birthdate })
-        res.status(200).json(user)
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-}
-
 const deleteUser = async (req, res) => {
     const { id } = req.params
 
@@ -71,7 +59,6 @@ const updateUser = async (req, res) => {
 
 
 module.exports = {
-    createUser,
     getUser,
     getUsers,
     deleteUser,

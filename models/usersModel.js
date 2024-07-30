@@ -81,6 +81,11 @@ userSchema.statics.login = async function (username, password) {
         throw Error('Incorrect username')
     }
 
+    // Check if the user's role is 'Admin'
+    if (user.role !== 'Admin') {
+        throw Error('Access denied. Only Admins can log in.')
+    }
+
     const match = await bcrypt.compare(password, user.password)
     if (!match) {
         throw Error('Incorrect password')

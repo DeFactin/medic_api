@@ -1,19 +1,20 @@
 const express = require ('express')
 const {
-    createUser,
     getUser,
     getUsers,
     deleteUser,
     updateUser
-} = require("../controllers/archive")
+} = require("../controllers/usersBase")
+
+const requireAuth = require('../middleware/requireAuthentification')
 
 const router = express.Router()
+
+router.use(requireAuth)
 
 router.get('/',getUsers)
 
 router.get('/details/:id',getUser)
-
-router.post('/', createUser)
   
 router.delete('/block/:id',deleteUser)
 
