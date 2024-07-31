@@ -27,6 +27,7 @@ const userSchema = new Schema({
     },
     lastlog: {
         type: Date,
+        default: Date.now,
         required: false
     },
     image: {

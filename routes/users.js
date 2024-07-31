@@ -3,7 +3,8 @@ const {
     getUser,
     getUsers,
     deleteUser,
-    updateUser
+    updateUser,
+    blockUser
 } = require("../controllers/usersBase")
 
 const requireAuth = require('../middleware/requireAuthentification')
@@ -16,7 +17,7 @@ router.get('/',getUsers)
 
 router.get('/details/:id',getUser)
   
-router.delete('/block/:id',deleteUser)
+router.put('/block/:id',blockUser)
 
 router.patch('/:id',updateUser)
 
