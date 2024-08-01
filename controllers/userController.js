@@ -2,7 +2,7 @@ const User = require('../models/usersModel')
 const jwt = require('jsonwebtoken')
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '1h' })
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '1d' })
 }
 
 // login a user
@@ -25,6 +25,10 @@ const loginUser = async (req, res) => {
 // signup a user
 const registerUser = async (req, res) => {
   const { username, password, name, orders, image, birthdate } = req.body
+
+  if (orders < 0 || orders > 10) {
+    return res.status(400).json({ error: 'Orders must be between 0 and 10' });
+  }
 
   try {
     const user = await User.signup(username, password, name, orders, image, birthdate)
