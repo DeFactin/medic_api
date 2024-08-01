@@ -82,9 +82,12 @@ userSchema.statics.login = async function (username, password) {
         throw Error('Incorrect username')
     }
 
-    // Check if the user's role is 'Admin'
+    if (user.status !== 'active') {
+        throw Error('Access denied. You are blocked.')
+    }
+
     if (user.role !== 'Admin') {
-        throw Error('Access denied. Only Admins can log in.')
+        throw Error('Access denied. Only Admin Users allowed.')
     }
 
     const match = await bcrypt.compare(password, user.password)
@@ -97,7 +100,7 @@ userSchema.statics.login = async function (username, password) {
 
 userSchema.statics.logoutUser = async function (username) {
     try {
-        const user = await this.findOne({ username }); // Find the user by username
+        const user = await this.findOne({ username });
         if (!user) {
             throw new Error('User not found');
         }

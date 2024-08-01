@@ -1,4 +1,4 @@
-const express = require ('express')
+const express = require('express')
 const {
     getUser,
     getUsers,
@@ -13,12 +13,12 @@ const router = express.Router()
 
 router.use(requireAuth)
 
-router.get('/',getUsers)
+router.get('/', getUsers)
 
-router.get('/details/:id',getUser)
-  
-router.put('/block/:id',blockUser)
+router.get('/details/:id', getUser)
 
-router.patch('/:id',updateUser)
+router.put('/block/:id', blockUser)
+
+router.put('/update/:id', updateUser)
 
 module.exports = router
