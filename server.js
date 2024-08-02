@@ -29,13 +29,13 @@ app.get('/', (req, res) => {
   res.send('Hello from the API!');
 });
 
-app.use('/api/users', usersRoutes)
+app.use('/users', usersRoutes)
 
-app.use('/api/login', loginRoute)
+app.use('/login', loginRoute)
 
-app.use('/api/register', registerUser)
+app.use('/register', registerUser)
 
-app.use('/api/logout', logoutRoute)
+app.use('/logout', logoutRoute)
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
