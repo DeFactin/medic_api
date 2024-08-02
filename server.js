@@ -24,6 +24,11 @@ app.use((req, res, next) => {
 })
 
 //routes
+
+app.get('/', (req, res) => {
+  res.send('Hello from the API!');
+});
+
 app.use('/api/users', usersRoutes)
 
 app.use('/api/login', loginRoute)
