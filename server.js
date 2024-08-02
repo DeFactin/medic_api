@@ -11,7 +11,7 @@ const cors = require('cors')
 // express app
 const app = express()
 app.use(cors({
-  origin: ["https://deploy-mern-medic-api.vercel.app"],
+  origin: ["https://mediclab-web.vercel.app/"],
   methods: ["POST", "GET"],
   credentials: true
 }));
