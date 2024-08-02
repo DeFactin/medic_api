@@ -11,9 +11,9 @@ const cors = require('cors')
 // express app
 const app = express()
 app.use(cors({
-  origin: ["https://mediclab-web.vercel.app/"],
-  methods: ["POST", "GET"],
-  credentials: true
+  origin: 'https://mediclab-web.vercel.app/', // Replace with your frontend URL
+  methods: 'GET,POST,PUT,DELETE', // Allow necessary methods
+  credentials: true // If you need to send cookies or auth headers
 }));
 // middleware
 app.use(express.json())
